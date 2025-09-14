@@ -1,0 +1,7 @@
+{
+  "frequency": 60,
+  "webhooks": ["https://discord.com/api/webhooks/your-webhook"],
+  "urls": {
+    "name of website": "https://website-to-monitor"
+  }
+}
