@@ -1,7 +1,7 @@
 use std::{collections::HashMap, thread::sleep, time::Duration};
 
 use crate::{
-    config::{WatcherConfiguration, WatcherConfigurationJSON},
+    config::WatcherConfiguration,
     request::{retrieve_site, webhook_message},
 };
 
@@ -13,18 +13,7 @@ async fn main() -> Result<(), reqwest::Error> {
     dotenv::dotenv().unwrap();
     env_logger::init();
 
-    let config_json: WatcherConfigurationJSON =
-        serde_json::from_str(&std::fs::read_to_string("config.json").unwrap()).unwrap();
-
-    let mut config = WatcherConfiguration::default().frequency(config_json.frequency);
-
-    for (name, url) in config_json.urls {
-        config = config.url(name, &url)
-    }
-
-    for webhook in config_json.webhooks {
-        config = config.webhook(&webhook)
-    }
+    let config = WatcherConfiguration::from_json("config.json");
 
     let mut previous_states: HashMap<String, String> = HashMap::new();
 
