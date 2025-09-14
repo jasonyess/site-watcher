@@ -10,7 +10,6 @@ mod request;
 
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {
-    dotenv::dotenv().unwrap();
     env_logger::init();
 
     let config = WatcherConfiguration::from_json("config.json");
